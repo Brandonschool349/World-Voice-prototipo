@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Voice | Turistas</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    html { scroll-behavior: smooth; }
+
+    /* Hero video */
+    #heroVideo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    /* Overlay para hero */
+    #heroOverlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9));
+      z-index: 0;
+    }
+
+    /* Animación para que el área de búsqueda destaque */
+    #searchSection {
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .interpreter-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .interpreter-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(139,92,246,0.3));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 1rem;
+        pointer-events: none;
+    }
+
+    .interpreter-card:hover::before {
+        opacity: 1;
+    }
+
+    .interpreter-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 1rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .interpreter-card::before {
+        content: "";
+        position: absolute;
+        inset: 0; /* ocupa todo el card */
+        background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 1rem;
+        pointer-events: none;
+        z-index: 0; /* atrás del contenido */
+    }
+
+    .interpreter-card:hover::before {
+        opacity: 1;
+    }
+
+    .interpreter-card > * {
+        position: relative; /* contenido por encima del aura */
+        z-index: 1;
+    }
+
+    .interpreter-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(139,92,246,0.2); /* sombra más sutil */
+    }
+
+
+
+  </style>
+</head>
+<body class="bg-black text-slate-200 relative">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="group relative flex items-center gap-2">
+      <img src="assets/images/World Voice-night2.JPG" alt="World Voice" class="h-7 w-auto" />
+      <span class="relative text-lg font-semibold text-white">World Voice</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-slate-300">
+      <a href="#" class="hover:text-wBlue transition">Conócenos</a>
+      <a href="#" class="hover:text-wBlue transition">Comunidad</a>
+      <a href="#" class="hover:text-wBlue transition">Para empresas</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <button class="flex items-center gap-1 text-slate-300 hover:text-white transition">
+        <span class="text-sm">ES</span>
+      </button>
+      <a href="#" class="px-4 py-2 rounded-full text-sm font-medium bg-white/10 text-white hover:bg-white/20 transition">
+        Iniciar sesión
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden text-center h-[600px] flex flex-col justify-center px-6">
+  <!-- Video de fondo -->
+   <video id="heroVideo" autoplay muted loop>
+   </video>
+  <div id="heroOverlay"></div>
+
+  <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 z-10 relative">
+    Encuentra intérpretes locales
+  </h1>
+  <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-8 z-10 relative">
+    Comunícate con confianza y sin barreras de idioma. Explora nuestros intérpretes disponibles en tu destino.
+  </p>
+
+  <!-- ================= SEARCH BAR PEGADA AL HERO ================= -->
+  <div id="searchSection" class="max-w-4xl mx-auto w-full relative z-10">
+    <div class="relative w-full bg-zinc-900/90 rounded-3xl p-1 shadow-2xl">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+          <svg class="w-6 h-6 text-yellow-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Busca un intérprete..."
+          class="w-full py-4 pl-14 pr-6 rounded-2xl border-2 border-slate-700 bg-zinc-900 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
+        />
+      </div>
+      <p class="text-slate-400 mt-2 text-sm text-center">Busca por nombre, idioma o ubicación</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOP INTERPRETES -->
+<section class="bg-black pt-0 pb-16">
+  <div class="max-w-7xl mx-auto px-6 text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Nuestros mejores intérpretes</h2>
+     <span class="block w-24 h-1 mx-auto rounded-full bg-gradient-to-r from-wBlue to-wPurple"></span>
+    <p class="text-slate-400">Profesionales calificados con mejores reseñas</p>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8" id="topInterpreters"></div>
+</section>
+
+<!-- FILTROS AVANZADOS -->
+<section class="bg-black py-20">
+  <div class="max-w-7xl mx-auto px-6 text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Encuentra al intérprete perfecto</h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">Filtra por país, idioma del intérprete y tu idioma para comunicarte.</p>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row gap-4 mb-10 items-center">
+    <div class="relative flex-1">
+      <select id="filterCountry" class="w-full p-4 rounded-2xl bg-zinc-900 border-2 border-slate-700 text-white appearance-none">
+        <option value="">País</option>
+        <option value="MX">México</option>
+        <option value="US">Estados Unidos</option>
+        <option value="FR">Francia</option>
+      </select>
+      <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="relative flex-1">
+      <select id="filterLang" class="w-full p-4 rounded-2xl bg-zinc-900 border-2 border-slate-700 text-white appearance-none">
+        <option value="">Idioma del intérprete</option>
+        <option value="es">Español</option>
+        <option value="en">Inglés</option>
+        <option value="fr">Francés</option>
+        <option value="lsm">LSM</option>
+      </select>
+      <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="relative flex-1">
+      <select id="filterUserLang" class="w-full p-4 rounded-2xl bg-zinc-900 border-2 border-slate-700 text-white appearance-none">
+        <option value="">Tu idioma</option>
+        <option value="es">Español</option>
+        <option value="en">Inglés</option>
+        <option value="fr">Francés</option>
+        <option value="lsm">LSM</option>
+      </select>
+      <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M19 9l-7 7-7-7"/>
+        </svg>
+      </div>
+    </div>
+
+    <button id="filterBtn" class="px-8 py-4 bg-gradient-to-r from-wBlue to-wPurple text-white font-semibold rounded-2xl hover:opacity-90 transition-all duration-300 shadow-lg">
+      Listo
+    </button>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8" id="filteredInterpreters"></div>
+  <p id="noResults" class="text-slate-400 text-xl text-center mt-12 hidden">No se encontraron intérpretes que coincidan con tu búsqueda.</p>
+</section>
+
+
+<!-- MODAL LOGIN -->
+<div id="loginModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50">
+  <div class="bg-zinc-900 rounded-2xl p-8 max-w-md w-full text-center">
+    <h3 class="text-xl font-semibold text-white mb-4">Primero haz login</h3>
+    <p class="text-slate-400 mb-6">Para contactar a un intérprete necesitas iniciar sesión</p>
+    <div class="flex justify-center gap-4">
+      <button class="px-6 py-2 bg-gradient-to-r from-wBlue to-wPurple text-white rounded-full" onclick="closeLoginModal()">Log In</button>
+      <button class="px-6 py-2 bg-zinc-700 text-white rounded-full" onclick="closeLoginModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+  const interpreters = [
+    { name: "María Pérez", stars: 5, country:"MX", lang:"en", userLang:"es", img:"assets/images/2.jpg", info:"Inglés - Español | Monterrey, MX" },
+    { name: "Juan López", stars: 5, country:"MX", lang:"fr", userLang:"es", img:"assets/images/1.JPG", info:"Francés - Español | Ciudad de México, MX" },
+    { name: "Ana Torres", stars: 5, country:"MX", lang:"lsm", userLang:"lsm", img:"assets/images/3.JPG", info:"Lengua de Señas Mexicana | Monterrey, MX" },
+    { name: "Lucía Martínez", stars: 4, country:"FR", lang:"fr", userLang:"es", img:"assets/images/5.JPG", info:"Francés - Español | París, FR" },
+    { name: "David Smith", stars: 4, country:"US", lang:"en", userLang:"es", img:"assets/images/4.JPG", info:"Inglés - Español | Nueva York, US" },
+    { name: "Alan García", stars: 3, country:"MX", lang:"en", userLang:"es", img:"assets/images/6.JPG", info:"Inglés - Español | Monterrey, MX" },
+  ];
+
+  const filteredContainer = document.getElementById('filteredInterpreters');
+  const topContainer = document.getElementById('topInterpreters');
+  const noResults = document.getElementById('noResults');
+  const searchInput = document.getElementById('searchInput');
+
+  function starHTML(stars){
+    return '<span class="text-yellow-400 text-xl">' + '★'.repeat(stars) + '</span>';
+  }
+
+  function renderTop(list){
+    topContainer.innerHTML = '';
+    list.slice(0,3).forEach(i=>{
+      const card = document.createElement('div');
+      card.className = 'interpreter-card bg-zinc-900 p-6 text-center flex flex-col items-center';
+      card.innerHTML = `
+        <div class="w-32 h-32 mb-4 rounded-full overflow-hidden border-2 border-slate-700">
+          <img src="${i.img}" alt="Intérprete" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">${i.name}</h3>
+        <div class="flex justify-center mb-2">${starHTML(i.stars)}</div>
+        <p class="text-slate-400 mb-4">${i.info}</p>
+        <button class="px-6 py-2 bg-gradient-to-r from-wBlue to-wPurple text-white font-semibold rounded-full hover:opacity-90 transition" onclick="showLoginModal()">Contactar</button>
+      `;
+      topContainer.appendChild(card);
+    });
+  }
+
+  function renderFiltered(list){
+    filteredContainer.innerHTML = '';
+    if(list.length===0){ noResults.classList.remove('hidden'); return; }
+    noResults.classList.add('hidden');
+    list.forEach(i=>{
+      const card = document.createElement('div');
+      card.className = 'interpreter-card bg-zinc-900 p-6 text-center flex flex-col items-center';
+      card.innerHTML = `
+        <div class="w-32 h-32 mb-4 rounded-full overflow-hidden border-2 border-slate-700">
+          <img src="${i.img}" alt="Intérprete" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">${i.name}</h3>
+        <div class="flex justify-center mb-2">${starHTML(i.stars)}</div>
+        <p class="text-slate-400 mb-4">${i.info}</p>
+        <button class="px-6 py-2 bg-gradient-to-r from-wBlue to-wPurple text-white font-semibold rounded-full hover:opacity-90 transition" onclick="showLoginModal()">Contactar</button>
+      `;
+      filteredContainer.appendChild(card);
+    });
+  }
+
+  document.getElementById('filterBtn').addEventListener('click', ()=>{
+    const country = document.getElementById('filterCountry').value;
+    const lang = document.getElementById('filterLang').value;
+    const userLang = document.getElementById('filterUserLang').value;
+    const results = interpreters.filter(i=> (country===""||i.country===country) && (lang===""||i.lang===lang) && (userLang===""||i.userLang===userLang));
+    renderFiltered(results);
+  });
+
+  searchInput.addEventListener('keyup', (e)=>{
+    if(e.key==='Enter'){
+      const query = searchInput.value.toLowerCase();
+      const results = interpreters.filter(i=> i.name.toLowerCase().includes(query));
+      renderFiltered(results);
+    }
+  });
+
+  function showLoginModal(){
+    const modal=document.getElementById('loginModal');
+    modal.classList.remove('hidden'); modal.classList.add('flex');
+  }
+  function closeLoginModal(){
+    const modal=document.getElementById('loginModal');
+    modal.classList.add('hidden'); modal.classList.remove('flex');
+  }
+
+  renderTop(interpreters);
+</script>
+
+<script>
+const videos = [
+  "videos/family.mp4",
+  "videos/like.mp4",
+  "videos/thanksgiving.mp4",
+  "videos/why.mp4",
+  "videos/instagram.mp4"
+];
+
+const heroVideo = document.getElementById('heroVideo');
+const randomIndex = Math.floor(Math.random() * videos.length);
+heroVideo.src = videos[randomIndex];
+heroVideo.play();
+</script>
+
+<!-- FOOTER -->
+<footer class="bg-black border-t border-white/10 py-10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <p class="text-sm text-slate-500">© 2026 World Voice. Todos los derechos reservados.</p>
+    <div class="flex gap-6 text-sm text-slate-600">
+      <a href="#" class="hover:text-wBlue transition">Comunidad</a>
+      <a href="#" class="hover:text-wBlue transition">Premium</a>
+      <a href="#" class="hover:text-wBlue transition">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

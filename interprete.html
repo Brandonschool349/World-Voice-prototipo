@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Voice | Área de Intérpretes</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wBlue: '#23c3d7',
+            wPurple: '#7c20d0',
+            wIndigo: '#3156c9',
+            wBlueSoft: '#3495dc',
+            wPurpleSoft: '#713ddb',
+            wGraySoft: '#1f1f1f',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Animations & Styles -->
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #000; color: #e5e7eb; }
+    .fadeUp { animation: fadeUp 0.8s ease-out forwards; }
+    @keyframes fadeUp { 0% { opacity:0; transform: translateY(20px);} 100%{opacity:1; transform: translateY(0);} }
+
+    .interpreter-card { position: relative; overflow: hidden; border-radius: 1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .interpreter-card::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15));
+      opacity:0; transition: opacity 0.3s ease;
+      border-radius:1rem; z-index:0;
+    }
+    .interpreter-card:hover::before { opacity:1; }
+    .interpreter-card > * { position:relative; z-index:1; }
+    .interpreter-card:hover { transform: translateY(-6px); box-shadow: 0 8px 16px rgba(139,92,246,0.2); }
+
+    .stat-card { background-color: #1f1f1f; border-radius: 1rem; padding: 1.5rem; text-align: center; transition: transform 0.2s ease, box-shadow 0.2s ease; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(114,45,219,0.3); }
+  </style>
+</head>
+<body class="bg-black text-slate-200">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10">
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="index.html" class="group relative flex items-center gap-2">
+      <img src="assets/images/World Voice-night2.JPG" alt="World Voice" class="h-7 w-auto" />
+      <span class="relative text-lg font-semibold text-white">World Voice</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-10 text-sm font-medium text-slate-300">
+      <a href="#" class="hover:text-wBlue transition">Conócenos</a>
+      <a href="#" class="hover:text-wBlue transition">Comunidad</a>
+      <a href="#" class="hover:text-wBlue transition">Para empresas</a>
+    </nav>
+    <div class="flex items-center gap-4">
+      <button class="flex items-center gap-1 text-slate-300 hover:text-white transition"><span class="text-sm">ES</span></button>
+      <a href="#" class="px-4 py-2 rounded-full text-sm font-medium bg-white/10 text-white hover:bg-white/20 transition">Iniciar sesión</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative h-[650px] flex items-center justify-center text-center overflow-hidden">
+
+  <!-- VIDEO -->
+  <video autoplay muted loop playsinline
+  class="absolute inset-0 w-full h-full object-cover z-0 brightness-75">
+
+    <source src="videos/why.mp4" type="video/mp4">
+  </video>
+
+  <!-- OVERLAY OSCURO -->
+  <div 
+  id="hero-overlay"
+  class="absolute inset-0 z-10 
+         bg-gradient-to-b 
+         from-black/70 
+         via-black/50 
+         to-black/80
+         transition-opacity duration-500">
+  </div>
+
+  <!-- DEGRADADO INFERIOR DIFUMINADO -->
+  <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-b from-transparent to-black z-20"></div>
+
+  <!-- CONTENIDO -->
+   
+  <div class="relative z-30 max-w-3xl px-6 flex flex-col items-center gap-6">
+    <div class="flex gap-3 mb-2 text-sm">
+        <span class="px-4 py-1.5 rounded-full 
+                    bg-white/10 
+                    backdrop-blur-md
+                    border border-white/20
+                    text-wBlue 
+                    shadow-lg
+                    tracking-wide
+                    font-bold">
+             Remoto
+        </span>
+
+        <span class="px-4 py-1.5 rounded-full 
+                    bg-white/10 
+                    backdrop-blur-md
+                    border border-white/20
+                    text-wPurple 
+                    shadow-lg
+                    tracking-wide
+                    font-bold">
+             Urgente
+        </span>
+    </div>
+
+
+    <h1 class="text-4xl md:text-6xl font-bold text-white">
+      Conviértete en intérprete profesional
+    </h1>
+    <p class="text-lg md:text-xl text-slate-300">
+      Conecta con empresas y turistas, aumenta tus ingresos y trabaja desde cualquier lugar.
+    </p>
+
+    <!-- BOTÓN -->
+    <a href="#opportunities" class="relative inline-flex items-center justify-center px-14 py-4 rounded-full text-white font-semibold text-lg md:text-xl group">
+      <span class="absolute inset-0 rounded-full bg-gradient-to-r from-wPurple to-wBlue opacity-60 blur-sm group-hover:opacity-90 animate-gradient"></span>
+      <span class="relative z-10">Explora oportunidades</span>
+    </a>
+  </div>
+
+  
+</section>
+
+<!-- ESTADÍSTICAS (más pegadas al hero) -->
+<section class="relative max-w-7xl mx-auto px-6 pt-6 pb-16 -mt-20 grid grid-cols-1 md:grid-cols-4 gap-6 z-30">
+  <div class="stat-card">
+    <p class="text-sm text-slate-400">Proyectos completados</p>
+    <p class="text-2xl font-bold text-white">24</p>
+  </div>
+  <div class="stat-card">
+    <p class="text-sm text-slate-400">Reseña promedio</p>
+    <p class="text-2xl font-bold text-yellow-400">4.8 ★</p>
+  </div>
+  <div class="stat-card">
+    <p class="text-sm text-slate-400">⏱ Horas trabajadas</p>
+    <p class="text-2xl font-bold text-white">312</p>
+  </div>
+  <div class="stat-card">
+    <p class="text-sm text-slate-400">Ganancias estimadas</p>
+    <p class="text-2xl font-bold text-wBlueSoft">$8,400 USD</p>
+  </div>
+</section>
+
+
+<!-- OPORTUNIDADES ACTIVAS -->
+<section id="opportunities" class="max-w-7xl mx-auto px-6 py-16">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Oportunidades activas</h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">Proyectos recientes donde tus habilidades pueden ser aplicadas.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="opportunitiesContainer"></div>
+</section>
+
+<!-- FILTROS AVANZADOS -->
+<section class="bg-black/90 py-16">
+  <div class="max-w-7xl mx-auto px-6 text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Filtra oportunidades</h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">Filtra por país, idioma, tipo de evento y disponibilidad.</p>
+  </div>
+  <div class="max-w-4xl mx-auto px-6 flex flex-col md:flex-row gap-4 mb-10 items-center">
+    <select id="filterCountry" class="flex-1 w-full p-4 rounded-2xl bg-zinc-900 border-2 border-slate-700 text-white appearance-none">
+      <option value="">País</option>
+      <option value="MX">México</option>
+      <option value="US">Estados Unidos</option>
+      <option value="FR">Francia</option>
+    </select>
+    <select id="filterLang" class="flex-1 w-full p-4 rounded-2xl bg-zinc-900 border-2 border-slate-700 text-white appearance-none">
+      <option value="">Idioma requerido</option>
+      <option value="es">Español</option>
+      <option value="en">Inglés</option>
+      <option value="fr">Francés</option>
+      <option value="lsm">LSM</option>
+    </select>
+    <select id="filterType" class="flex-1 w-full p-4 rounded-2xl bg-zinc-900 border-2 border-slate-700 text-white appearance-none">
+      <option value="">Tipo de evento</option>
+      <option value="turismo">Turismo</option>
+      <option value="empresa">Empresas</option>
+      <option value="salud">Salud</option>
+      <option value="educacion">Educación</option>
+    </select>
+    <button id="filterBtn" class="px-8 py-4 bg-gradient-to-r from-wBlue to-wPurple text-white font-semibold rounded-2xl hover:opacity-90 transition-all duration-300 shadow-lg">
+      Filtrar
+    </button>
+  </div>
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8" id="filteredOpportunities"></div>
+  <p id="noResults" class="text-slate-400 text-xl text-center mt-12 hidden">No se encontraron oportunidades.</p>
+</section>
+
+<!-- HISTORIAS DE ÉXITO -->
+<section class="max-w-7xl mx-auto px-6 py-16">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-white mb-2">Historias de éxito</h2>
+    <p class="text-slate-400 max-w-2xl mx-auto">Intérpretes que han destacado trabajando con World Voice.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="successStoriesContainer"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-black border-t border-white/10 py-10">
+  <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+    <p class="text-sm text-slate-500">© 2026 World Voice. Todos los derechos reservados.</p>
+    <div class="flex gap-6 text-sm text-slate-600">
+      <a href="#" class="hover:text-wBlue transition">Comunidad</a>
+      <a href="#" class="hover:text-wBlue transition">Premium</a>
+      <a href="#" class="hover:text-wBlue transition">Contacto</a>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+  const opportunities = [
+    {title:"Intérprete para conferencia", lang:"en", type:"educacion", city:"Nueva York, US", pay:"$150 USD", img:"assets/images/conferencia.JPG"},
+    {title:"Turismo guiado", lang:"es", type:"turismo", city:"Monterrey, MX", pay:"$80 USD", img:"assets/images/turismo.jpg"},
+    {title:"Traducción médica", lang:"es", type:"salud", city:"París, FR", pay:"$120 USD", img:"assets/images/medica.JPG"},
+    {title:"Reunión empresarial", lang:"fr", type:"empresa", city:"Ciudad de México, MX", pay:"$100 USD", img:"assets/images/reunion.JPG"},
+  ];
+
+  const successStories = [
+    {name:"María Pérez", img:"assets/images/2.jpg", rating:5, info:"Intérprete bilingüe con +500 horas completadas"},
+    {name:"Juan López", img:"assets/images/1.JPG", rating:4, info:"Experiencia en eventos internacionales"},
+    {name:"Ana Torres", img:"assets/images/3.JPG", rating:5, info:"Especialista en LSM y conferencias médicas"},
+  ];
+
+  function starHTML(stars){ return '<span class="text-yellow-400 text-xl">'+ '★'.repeat(stars)+'</span>'; }
+
+  const oppContainer = document.getElementById('opportunitiesContainer');
+  const filteredContainer = document.getElementById('filteredOpportunities');
+  const successContainer = document.getElementById('successStoriesContainer');
+  const noResults = document.getElementById('noResults');
+
+  function renderOpportunities(list){
+    oppContainer.innerHTML='';
+    list.forEach(o=>{
+      const card=document.createElement('div');
+      card.className='interpreter-card bg-zinc-900 p-6 text-center flex flex-col items-center';
+      card.innerHTML=`
+        <div class="w-32 h-32 mb-4 rounded-full overflow-hidden border-2 border-slate-700">
+          <img src="${o.img}" alt="Oportunidad" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">${o.title}</h3>
+        <p class="text-slate-400 mb-2">${o.city}</p>
+        <p class="text-slate-400 mb-2">${o.lang.toUpperCase()} | ${o.type.charAt(0).toUpperCase()+o.type.slice(1)}</p>
+        <p class="text-wBlueSoft font-semibold mb-4">${o.pay}</p>
+        <button class="px-6 py-2 bg-gradient-to-r from-wPurple to-wPurpleSoft text-white font-semibold rounded-full hover:opacity-90 transition">
+          Postularme
+        </button>
+      `;
+      oppContainer.appendChild(card);
+    });
+  }
+
+  function renderSuccess(list){
+    successContainer.innerHTML='';
+    list.forEach(i=>{
+      const card=document.createElement('div');
+      card.className='interpreter-card bg-zinc-900 p-6 text-center flex flex-col items-center';
+      card.innerHTML=`
+        <div class="w-28 h-28 mb-4 rounded-full overflow-hidden border-2 border-slate-700">
+          <img src="${i.img}" alt="Intérprete" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">${i.name}</h3>
+        <div class="flex justify-center mb-2">${starHTML(i.rating)}</div>
+        <p class="text-slate-400">${i.info}</p>
+      `;
+      successContainer.appendChild(card);
+    });
+  }
+
+  function renderFiltered(list){
+    filteredContainer.innerHTML='';
+    if(list.length===0){ noResults.classList.remove('hidden'); return; }
+    noResults.classList.add('hidden');
+    list.forEach(o=>{
+      const card=document.createElement('div');
+      card.className='interpreter-card bg-zinc-900 p-6 text-center flex flex-col items-center';
+      card.innerHTML=`
+        <div class="w-32 h-32 mb-4 rounded-full overflow-hidden border-2 border-slate-700">
+          <img src="${o.img}" alt="Oportunidad" class="w-full h-full object-cover">
+        </div>
+        <h3 class="text-xl font-semibold text-white mb-2">${o.title}</h3>
+        <p class="text-slate-400 mb-2">${o.city}</p>
+        <p class="text-slate-400 mb-2">${o.lang.toUpperCase()} | ${o.type.charAt(0).toUpperCase()+o.type.slice(1)}</p>
+        <p class="text-wBlueSoft font-semibold mb-4">${o.pay}</p>
+        <button class="px-6 py-2 bg-gradient-to-r from-wPurple to-wPurpleSoft text-white font-semibold rounded-full hover:opacity-90 transition">
+          Postularme
+        </button>
+      `;
+      filteredContainer.appendChild(card);
+    });
+  }
+
+  document.getElementById('filterBtn').addEventListener('click',()=>{
+    const country = document.getElementById('filterCountry').value;
+    const lang = document.getElementById('filterLang').value;
+    const type = document.getElementById('filterType').value;
+    const results = opportunities.filter(o=> 
+      (country===''||o.city.includes(country)) && 
+      (lang===''||o.lang===lang) &&
+      (type===''||o.type===type)
+    );
+    renderFiltered(results);
+  });
+
+  renderOpportunities(opportunities);
+  renderSuccess(successStories);
+</script>
+
+</body>
+</html>

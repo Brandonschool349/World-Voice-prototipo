@@ -1,0 +1,275 @@
+/* =========================
+   RESET + BASE
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #1f2933;
+  background-color: #f9fafb;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* =========================
+   VARIABLES (fácil de migrar a design system)
+========================= */
+:root {
+  --primary: #2563eb;      /* azul neutro */
+  --secondary: #10b981;    /* verde suave */
+  --text-main: #1f2933;
+  --text-muted: #6b7280;
+  --bg-white: #ffffff;
+  --bg-light: #f3f4f6;
+  --border-soft: #e5e7eb;
+  --radius: 14px;
+  --shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* =========================
+   HEADER
+========================= */
+.header {
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.nav a {
+  margin-left: 24px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.nav a:hover {
+  color: var(--primary);
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  padding: 80px 0;
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f9fafb 100%
+  );
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero h2 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+}
+
+/* =========================
+   ROLE SELECTION
+========================= */
+.role-selection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 32px;
+}
+
+.role-card {
+  background: var(--bg-white);
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.role-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.08);
+}
+
+.role-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+
+.role-card p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+.btn {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.btn.primary:hover {
+  background: #1e40af;
+}
+
+.btn.secondary {
+  background: var(--secondary);
+  color: white;
+}
+
+.btn.secondary:hover {
+  background: #059669;
+}
+
+.btn.outline {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn.outline:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* =========================
+   HOW IT WORKS
+========================= */
+.how-it-works {
+  padding: 80px 0;
+  background: var(--bg-light);
+}
+
+.how-it-works h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 48px;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+}
+
+.step {
+  background: var(--bg-white);
+  padding: 32px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+}
+
+.step h4 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.step li {
+  margin-bottom: 12px;
+  color: var(--text-muted);
+}
+
+/* =========================
+   WORLD CUP
+========================= */
+.world-cup {
+  padding: 80px 0;
+  background: var(--primary);
+  color: white;
+}
+
+.world-cup-content {
+  text-align: center;
+  max-width: 700px;
+}
+
+.world-cup h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.world-cup p {
+  margin-bottom: 32px;
+  opacity: 0.9;
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  background: var(--bg-white);
+  border-top: 1px solid var(--border-soft);
+  padding: 32px 0;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.footer p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.footer-links a {
+  margin-left: 20px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.footer-links a:hover {
+  color: var(--primary);
+}
+
